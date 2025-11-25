@@ -1,0 +1,295 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sync Addon Documentation</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <header>
+        <h1>Sync Addon Documentation</h1>
+        <button id="theme-toggle">Toggle Theme</button>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="#overview">Overview of Sync</a></li>
+            <li><a href="#folders">Folders</a></li>
+            <li><a href="#functions">Functions (How to Create Them)</a></li>
+            <li><a href="#hooks">Hooks (Triggers)</a></li>
+            <li><a href="#events">Events (Before/After)</a></li>
+            <li><a href="#conditions">Conditions (Player States & More)</a></li>
+            <li><a href="#messages">Messages</a></li>
+            <li><a href="#commands">Commands</a></li>
+            <li><a href="#variables">Variables (Counters & Storage)</a></li>
+            <li><a href="#custom-ui">Custom UI (Interactive Forms)</a></li>
+            <li><a href="#var-conditions">Variable Conditions (Smart Logic)</a></li>
+            <li><a href="#cancellation">Event Cancellation & Protection</a></li>
+            <li><a href="#inputs">Inputs (Items, Blocks, Entities, Chat)</a></li>
+            <li><a href="#placeholders">Placeholders {Dynamic Text}</a></li>
+            <li><a href="#execution">Execution Order</a></li>
+            <li><a href="#globals-locals">Global vs Local Variables</a></li>
+            <li><a href="#loops">Loops (Repeating Actions)</a></li>
+            <li><a href="#console">Error Console (/console)</a></li>
+            <li><a href="#variable-cmd">/variable Command</a></li>
+            <li><a href="#varlist">/varlist Command</a></li>
+            <li><a href="#broadcast">/broadcast Command</a></li>
+            <li><a href="#send">/send Command</a></li>
+            <li><a href="#regions">/region - Protection Regions</a></li>
+            <li><a href="#tips">Tips, Examples & Best Practices</a></li>
+        </ul>
+    </nav>
+    <main>
+        <section id="overview">
+            <h2>Overview of Sync</h2>
+            <p>Sync is a Bedrock addon that lets you create custom events and actions in Minecraft without writing code. Think of it like building automation rules.</p>
+            <p>Key Guidelines: Use /sync:menu to open the main menu, /sync:synchelp for help, /sync:loops for managing loops. Create folders to organize functions and variables.</p>
+            <h3>Examples</h3>
+            <pre><code>/sync:menu - Opens the main menu for creating folders and functions.</code></pre>
+            <h3>Tips</h3>
+            <ul>
+                <li>Assume good intent when using; start with simple rules.</li>
+                <li>Answer factual questions truthfully.</li>
+            </ul>
+        </section>
+        <section id="folders">
+            <h2>Folders</h2>
+            <p>Folders organize functions, variables, and loops. Example: 'Farming' for crop rules.</p>
+            <p>How to: /sync:menu > Folders > Create/Delete/Rename.</p>
+            <h3>Examples</h3>
+            <pre><code>Create a folder named 'Stats' for player data.</code></pre>
+            <h3>Tips</h3>
+            <ul>
+                <li>Use logical names for organization.</li>
+                <li>Local variables are per-folder.</li>
+            </ul>
+        </section>
+        <section id="functions">
+            <h2>Functions (How to Create Them)</h2>
+            <p>Functions are rules triggered by hooks, with conditions and actions.</p>
+            <p>How to: /sync:menu > Folder > Create Function > Name > Hook > Inputs > Event > Conditions.</p>
+            <h3>Examples</h3>
+            <pre><code>Create 'HealOnApple': Hook Item Use, Input apple, Action message 'Healed!'.</code></pre>
+            <h3>Tips</h3>
+            <ul>
+                <li>Test with messages first.</li>
+                <li>Edit via folder menu.</li>
+            </ul>
+        </section>
+        <section id="hooks">
+            <h2>Hooks (Triggers)</h2>
+            <p>Hooks trigger functions: Item Use, Player Break Block, etc.</p>
+            <p>Special: 'region &lt;name&gt;' for events in regions.</p>
+            <h3>Examples</h3>
+            <pre><code>Use 'Entity Die' for mob death rewards.</code></pre>
+            <h3>Tips</h3>
+            <ul>
+                <li>Use 'after' for rewards, 'before' for prevention.</li>
+            </ul>
+        </section>
+        <section id="events">
+            <h2>Events (Before/After)</h2>
+            <p>Phases for hooks: 'before' to cancel, 'after' for follow-ups.</p>
+            <h3>Examples</h3>
+            <pre><code>'Before' Item Use to check conditions before action.</code></pre>
+            <h3>Tips</h3>
+            <ul>
+                <li>'After' is safer for beginners.</li>
+            </ul>
+        </section>
+        <section id="conditions">
+            <h2>Conditions (Player States & More)</h2>
+            <p>Checks like isSneaking, KilledByPlayer, region &lt;name&gt;.</p>
+            <h3>Examples</h3>
+            <pre><code>Add 'isSneaking' to Item Use for secret actions.</code></pre>
+            <h3>Tips</h3>
+            <ul>
+                <li>Combine with var conditions for flexibility.</li>
+            </ul>
+        </section>
+        <section id="messages">
+            <h2>Messages</h2>
+            <p>Send chat text with placeholders.</p>
+            <h3>Examples</h3>
+            <pre><code>'You broke {broken block}!'</code></pre>
+            <h3>Tips</h3>
+            <ul>
+                <li>Use § for colors.</li>
+            </ul>
+        </section>
+        <section id="commands">
+            <h2>Commands</h2>
+            <p>Run Minecraft commands as console or player.</p>
+            <h3>Examples</h3>
+            <pre><code>'effect {player} speed 10 1'</code></pre>
+            <h3>Tips</h3>
+            <ul>
+                <li>Test in chat first.</li>
+            </ul>
+        </section>
+        <section id="variables">
+            <h2>Variables (Counters & Storage)</h2>
+            <p>Store numbers: add, set, remove, reset.</p>
+            <h3>Examples</h3>
+            <pre><code>Add 1 to 'kills' on entity die.</code></pre>
+            <h3>Tips</h3>
+            <ul>
+                <li>Locals for per-player, globals for shared.</li>
+            </ul>
+        </section>
+        <section id="custom-ui">
+            <h2>Custom UI (Interactive Forms)</h2>
+            <p>ActionForms (buttons) or ModalForms (inputs).</p>
+            <h3>Examples</h3>
+            <pre><code>Shop UI with buy buttons.</code></pre>
+            <h3>Tips</h3>
+            <ul>
+                <li>Replaces direct actions.</li>
+            </ul>
+        </section>
+        <section id="var-conditions">
+            <h2>Variable Conditions (Smart Logic)</h2>
+            <p>Expressions like '{kills} > 5' or '{item_name} contains "magic"'.</p>
+            <h3>Examples</h3>
+            <pre><code>Require '{level} >= 10'.</code></pre>
+            <h3>Tips</h3>
+            <ul>
+                <li>Use for advanced gating.</li>
+            </ul>
+        </section>
+        <section id="cancellation">
+            <h2>Event Cancellation & Protection</h2>
+            <p>Cancel in 'before' with conditions or UI.</p>
+            <h3>Examples</h3>
+            <pre><code>Cancel place if in region.</code></pre>
+            <h3>Tips</h3>
+            <ul>
+                <li>For protections/restrictions.</li>
+            </ul>
+        </section>
+        <section id="inputs">
+            <h2>Inputs (Items, Blocks, Entities, Chat)</h2>
+            <p>Filter with comma (OR), + (AND).</p>
+            <h3>Examples</h3>
+            <pre><code>'diamond_sword + legendary'</code></pre>
+            <h3>Tips</h3>
+            <ul>
+                <li>Checks names/lore too.</li>
+            </ul>
+        </section>
+        <section id="placeholders">
+            <h2>Placeholders {Dynamic Text}</h2>
+            <p>{player}, {item}, {victim health}, etc.</p>
+            <h3>Examples</h3>
+            <pre><code>'{player} at {x},{y},{z}'</code></pre>
+            <h3>Tips</h3>
+            <ul>
+                <li>Context-specific.</li>
+            </ul>
+        </section>
+        <section id="execution">
+            <h2>Execution Order</h2>
+            <p>Hook > Inputs > Conditions > Var Conditions > UI/Actions.</p>
+            <h3>Examples</h3>
+            <pre><code>Multiple functions can run.</code></pre>
+            <h3>Tips</h3>
+            <ul>
+                <li>Debug step-by-step.</li>
+            </ul>
+        </section>
+        <section id="globals-locals">
+            <h2>Global vs Local Variables</h2>
+            <p>Global: Shared. Local: Per-player/folder.</p>
+            <h3>Examples</h3>
+            <pre><code>Global 'total_kills', local 'my_kills'.</code></pre>
+            <h3>Tips</h3>
+            <ul>
+                <li>Placeholders prefer local.</li>
+            </ul>
+        </section>
+        <section id="loops">
+            <h2>Loops (Repeating Actions)</h2>
+            <p>Run every N ticks, global or per-player.</p>
+            <h3>Examples</h3>
+            <pre><code>Playtime loop: add to local 'playtime'.</code></pre>
+            <h3>Tips</h3>
+            <ul>
+                <li>Avoid small intervals to prevent lag.</li>
+            </ul>
+        </section>
+        <section id="console">
+            <h2>Error Console (/console)</h2>
+            <p>View last 20 errors from commands.</p>
+            <h3>Examples</h3>
+            <pre><code>Click entry to see details.</code></pre>
+            <h3>Tips</h3>
+            <ul>
+                <li>Use for debugging.</li>
+            </ul>
+        </section>
+        <section id="variable-cmd">
+            <h2>/variable Command</h2>
+            <p>Modify variables: add/set/remove/reset.</p>
+            <h3>Examples</h3>
+            <pre><code>/variable add local stats diamondbreak Steve 1</code></pre>
+            <h3>Tips</h3>
+            <ul>
+                <li>Requires 'sync' tag.</li>
+            </ul>
+        </section>
+        <section id="varlist">
+            <h2>/varlist Command</h2>
+            <p>List variables in folder.</p>
+            <h3>Examples</h3>
+            <pre><code>/varlist local stats Steve</code></pre>
+            <h3>Tips</h3>
+            <ul>
+                <li>Debug values.</li>
+            </ul>
+        </section>
+        <section id="broadcast">
+            <h2>/broadcast Command</h2>
+            <p>Send message to all.</p>
+            <h3>Examples</h3>
+            <pre><code>/broadcast "Server update!"</code></pre>
+            <h3>Tips</h3>
+            <ul>
+                <li>For announcements.</li>
+            </ul>
+        </section>
+        <section id="send">
+            <h2>/send Command</h2>
+            <p>Private message to player.</p>
+            <h3>Examples</h3>
+            <pre><code>/send Steve "Hi!"</code></pre>
+            <h3>Tips</h3>
+            <ul>
+                <li>Exact name.</li>
+            </ul>
+        </section>
+        <section id="regions">
+            <h2>/region - Protection Regions</h2>
+            <p>Create cuboids for protection.</p>
+            <h3>Examples</h3>
+            <pre><code>/region create spawn</code></pre>
+            <h3>Tips</h3>
+            <ul>
+                <li>Use in conditions.</li>
+            </ul>
+        </section>
+        <section id="tips">
+            <h2>Tips, Examples & Best Practices</h2>
+            <p>Start small, test often.</p>
+            <h3>Examples</h3>
+            <pre><code>Auto-farm: Break wheat, add to counter.</code></pre>
+            <h3>Tips</h3>
+            <ul>
+                <li>Use console for errors.</li>
+                <li>Combine features.</li>
+            </ul>
+        </section>
+    </main>
+</body>
+</html>
